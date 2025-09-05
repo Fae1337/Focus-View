@@ -11,20 +11,13 @@ void GetParamets(HDC hWndDC) {
     int screenW = GetSystemMetrics(SM_CXSCREEN);
     int screenH = GetSystemMetrics(SM_CYSCREEN);
 
-    //std::cout << "\n1111111111111\n";
-
     float srcW = WIDTH / Zoom;
     float srcH = HEIGHT / Zoom;
-
-    //std::cout << screenW << " | " << screenH << std::endl;
-    //std::cout << srcW << " | " << srcH << std::endl;
 
     float x = (screenW - srcW) / 2;
     float y = (screenH - srcH) / 2;
 
-    //std::cout << x << " | " << y;
-
-    SetStretchBltMode(hWndDC, HALFTONE); // сглаживание
+    SetStretchBltMode(hWndDC, HALFTONE); // сглаживание но хуйня всё равно
     StretchBlt(hWndDC, 0, 0, WIDTH, HEIGHT, hDesktopDC, x, y, srcW, srcH, SRCCOPY);
 
     ReleaseDC(hDesktop, hDesktopDC);
@@ -89,3 +82,4 @@ int main(int argc, char* argv[]) {
     }
     return 0;
 }
+
