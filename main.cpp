@@ -1,5 +1,7 @@
 #include <windows.h>
 #include <iostream>
+#include <string>
+#include <stdlib.h>
 #include "cfg.h"
 
 void GetParamets(HDC hWndDC) {
@@ -8,19 +10,12 @@ void GetParamets(HDC hWndDC) {
 
     int screenW = GetSystemMetrics(SM_CXSCREEN);
     int screenH = GetSystemMetrics(SM_CYSCREEN);
+    
+    float srcW = WIDTH / Zoom;
+    float srcH = HEIGHT / Zoom;
 
-    //std::cout << "\n1111111111111\n";
-
-    int srcW = WIDTH / Zoom;
-    int srcH = HEIGHT / Zoom;
-
-    //std::cout << screenW << " | " << screenH << std::endl;
-    //std::cout << srcW << " | " << srcH << std::endl;
-
-    int x = (screenW - srcW) / 2;
-    int y = (screenH - srcH) / 2;
-
-    //std::cout << x << " | " << y;
+    float x = (screenW - srcW) / 2;
+    float y = (screenH - srcH) / 2;
     
     SetStretchBltMode(hWndDC, HALFTONE); // сглаживание
     StretchBlt(hWndDC, 0, 0, WIDTH, HEIGHT, hDesktopDC, x, y, srcW, srcH, SRCCOPY);
@@ -47,7 +42,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
-int main() {
+int main(int argc, char* argv[]) {
+    for (auto logo : std::string{ "Magnifer" }) {
+        std::cout << logo;
+        Sleep(100);
+    }
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    system("cls");
+    std::cout << "Config parameters:" << std::endl << std::endl;
+
     std::cout << "Monitor: " << GetSystemMetrics(SM_CXSCREEN) << " / " << GetSystemMetrics(SM_CYSCREEN) << std::endl;
     std::cout << "Area size: " << WIDTH << " | " << HEIGHT << std::endl;
     std::cout << "FPS: " << FPS << std::endl;
@@ -64,11 +69,11 @@ int main() {
         L"MyCenterCaptureClass",
         L"Center Capture",
         WS_POPUP,
-        100, 100, WIDTH, HEIGHT,
+        xposition, yposition, WIDTH, HEIGHT,
         NULL, NULL, wc.hInstance, NULL
     );
     ShowWindow(hwnd, SW_SHOW);
-    SetTimer(hwnd, 1, FPS, NULL); // SetTimer(hwnd, 1, fps, NULL);
+    SetTimer(hwnd, 1, FPS, NULL);
 
     MSG msg;
     while (GetMessage(&msg, NULL, 0, 0)) {
