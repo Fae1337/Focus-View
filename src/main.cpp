@@ -42,8 +42,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
-int main(int argc, char* argv[]) {
-    for (auto logo : std::string{ "Magnifer" }) {
+int main() {
+    for (auto logo : std::string{ "Focus-View" }) {
         std::cout << logo;
         Sleep(100);
     }
@@ -82,4 +82,5 @@ int main(int argc, char* argv[]) {
     }
     return 0;
 }
+
 
